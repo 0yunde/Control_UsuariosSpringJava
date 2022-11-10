@@ -27,7 +27,7 @@ async function cargarUsuarios(){
         for (let usuario of responseUsuariosLista ) {
 
           let botonEliminar =  '<a href="#" onclick="eliminarUsuario('+usuario.id+')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>';
-          let botonEditar =  '<a href="#"  class="btn btn-success btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-info"></i></a>';
+          let botonEditar =  '<a href="#"  class="btn btn-success btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fas fa-info"></i></a>';
 
 
           let usuarioTr ='<tr><td>'

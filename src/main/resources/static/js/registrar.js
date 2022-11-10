@@ -30,8 +30,8 @@ async function registrarUsuario(){
         });
 
         alert("La cuenta fue creada con exito!");
-        window.location.href = 'ingresar.html';
-
+        //window.location.href = 'ingresar.html';
+        location.reload();
     } catch (error) {
       console.error(error);
     }
