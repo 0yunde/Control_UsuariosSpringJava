@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     //Carde usuarios
     cargarUsuarios();
     //Visualizacion de los datos en tabla
@@ -7,11 +7,11 @@ $(document).ready(function() {
     nombreCuentaUsuario();
 });
 
-function nombreCuentaUsuario(){
+function nombreCuentaUsuario() {
     document.getElementById('txt-email-usuario').outerHTML = localStorage.cuenta;
 }
 
-async function cargarUsuarios(){
+async function cargarUsuarios() {
     try {
         //Llamado al servidor, esperando  resultado
         const request = await fetch('api/usuariosLista', {
@@ -24,42 +24,42 @@ async function cargarUsuarios(){
         //Variable para recorred cada usario que figurara en la tabla
         let listadoHTML = '';
 
-        for (let usuario of responseUsuariosLista ) {
+        for (let usuario of responseUsuariosLista) {
 
-          let botonEliminar =  '<a href="#" onclick="eliminarUsuario('+usuario.id+')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>';
-          let botonEditar =  '<a href="#"  class="btn btn-success btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fas fa-info"></i></a>';
+            let botonEliminar = '<a href="#" onclick="eliminarUsuario(' + usuario.id + ')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>';
+            let botonEditar = '<a href="#"  class="btn btn-success btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fas fa-info"></i></a>';
 
 
-          let usuarioTr ='<tr><td>'
-          +usuario.id+'</td><td>'
-          +usuario.nombres+'</td><td>'
-          +usuario.apellidos+'</td><td>'
-          +usuario.email+'</td><td>'
-          +usuario.telefono+'</td><td>'
-          +usuario.cuenta+'</td><td>'
-          +usuario.contrasena+'</td><td>'+botonEditar+' '+botonEliminar+'</td></tr>';
+            let usuarioTr = '<tr><td>'
+                + usuario.id + '</td><td>'
+                + usuario.nombres + '</td><td>'
+                + usuario.apellidos + '</td><td>'
+                + usuario.email + '</td><td>'
+                + usuario.telefono + '</td><td>'
+                + usuario.cuenta + '</td><td>'
+                + usuario.contrasena + '</td><td>' + botonEditar + ' ' + botonEliminar + '</td></tr>';
 
-          listadoHTML += usuarioTr;
+            listadoHTML += usuarioTr;
         }
 
         document.querySelector('#tablaUsuario tbody').outerHTML = listadoHTML;
 
     } catch (error) {
-      console.error(error);
+        console.error(error);
     }
 }
 
 function getHeaders() {
     return {
-     'Accept': 'application/json',
-     'Content-Type': 'application/json',
-     'Authorization': localStorage.token
-   };
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token
+    };
 }
 
-async function eliminarUsuario(id){
+async function eliminarUsuario(id) {
 
-    if(!confirm('¿Desea eliminar este usuario?')){
+    if (!confirm('¿Desea eliminar este usuario?')) {
         return;
     }
     const request = await fetch('api/usuario/' + id, {

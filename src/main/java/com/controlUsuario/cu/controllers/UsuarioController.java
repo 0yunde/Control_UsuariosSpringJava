@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class UsuarioController  {
+public class UsuarioController {
 
     //Hace que la clase usuarioDaoImp se cree un objeto y la guarde dentro de esta variable y
     //ademas de compartirlo en memoria para no crearlo reiteradas veces, conceppto de inyeccion de dependencias.
@@ -24,10 +24,12 @@ public class UsuarioController  {
 
 
     //Recibe parametro de autorizacion ya que si este esta vacio retornara error 400
-    @RequestMapping(value = "api/usuariosLista" , method = RequestMethod.GET)
-    public List<Usuario> usuariosLista(@RequestHeader(value="Authorization") String token) {
+    @RequestMapping(value = "api/usuariosLista", method = RequestMethod.GET)
+    public List<Usuario> usuariosLista(@RequestHeader(value = "Authorization") String token) {
         System.out.println(token);
-        if (!validarToken(token)) { return null; }
+        if (!validarToken(token)) {
+            return null;
+        }
 
         return usuarioDao.obtenerUsuarios();
     }
@@ -41,13 +43,15 @@ public class UsuarioController  {
     }
 
     @RequestMapping(value = "api/usuario/{id}", method = RequestMethod.DELETE)
-    public void eliminar (@RequestHeader(value="Authorization") String token, @PathVariable Long id) {
-        if (!validarToken(token)) { return; }
+    public void eliminar(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) {
+        if (!validarToken(token)) {
+            return;
+        }
         usuarioDao.eliminar(id);
 
     }
 
-    @RequestMapping(value = "api/registrarUsuario" , method = RequestMethod.POST)
+    @RequestMapping(value = "api/registrarUsuario", method = RequestMethod.POST)
     public void registrarUsuario(@RequestBody Usuario usuario) {
 
         //Procedimiento para utilizar argon he incriptacion de este
@@ -75,11 +79,6 @@ public class UsuarioController  {
         return usuarioOb;
     }
 
-
-
-
-
-
     @RequestMapping(value = "api/usuarios/{id}", method = RequestMethod.GET)
     public Usuario obtenerUsuario(@PathVariable Long id) {
         Usuario usuario = new Usuario();
@@ -94,10 +93,6 @@ public class UsuarioController  {
 
         return usuario;
     }
-
-
-
-
 
     @RequestMapping(value = "usuarioOb/123234")
     public Usuario buscar() {

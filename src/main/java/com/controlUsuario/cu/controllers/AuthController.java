@@ -21,7 +21,7 @@ public class AuthController {
 
 
     //Recibe cuenta y contraseña respecto al usuario, parte del servidor
-    @RequestMapping(value = "api/iniciarSesion" , method = RequestMethod.POST)
+    @RequestMapping(value = "api/iniciarSesion", method = RequestMethod.POST)
     public String ingresar(@RequestBody Usuario usuario) {
 
         //Verifica credenciales

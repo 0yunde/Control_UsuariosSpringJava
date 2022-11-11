@@ -9,9 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+
 @Repository // Funcionalidad para conexion base de datos
 @Transactional //Funcionalidad para armar consultas sql
-public class UsuarioDaoImp implements UsuarioDao{
+public class UsuarioDaoImp implements UsuarioDao {
 
 
     @PersistenceContext //Realiza los cambios que se han realizado sobre las entidades en la base de datos
@@ -39,24 +40,24 @@ public class UsuarioDaoImp implements UsuarioDao{
     @Override
     public Usuario obtenerUsuarioPorCredenciales(Usuario usuario) {
         String query = "FROM Usuario WHERE cuenta = :cuenta";
-         List<Usuario> listaRs = entityManager.createQuery(query)
+        List<Usuario> listaRs = entityManager.createQuery(query)
                 .setParameter("cuenta", usuario.getCuenta())
-                 .getResultList();
+                .getResultList();
 
-         //Suceptible a null pointer exepcion
-         //Si el nombre de la cuenta no existe en base de datos, en la lista volvera vacia
-         //Al tratar de obtener el primer valor devolvera null, y si se intenta obtener la contraseña se efectua este nullpointer exepcion
-         //Control del error
-        if(listaRs.isEmpty()){
+        //Suceptible a null pointer exepcion
+        //Si el nombre de la cuenta no existe en base de datos, en la lista volvera vacia
+        //Al tratar de obtener el primer valor devolvera null, y si se intenta obtener la contraseña se efectua este nullpointer exepcion
+        //Control del error
+        if (listaRs.isEmpty()) {
             return null;
         }
 
-         String contrasenaHasheada = listaRs.get(0).getContrasena();
+        String contrasenaHasheada = listaRs.get(0).getContrasena();
 
-         //Procedimiento para utilizar argon he incriptacion de este
+        //Procedimiento para utilizar argon he incriptacion de este
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         //Verifica por medio de verificacion la contraseña hasheada en base de datos y la que se entrega bajo boolean
-        if( argon2.verify(contrasenaHasheada, usuario.getContrasena().toCharArray())){
+        if (argon2.verify(contrasenaHasheada, usuario.getContrasena().toCharArray())) {
             return listaRs.get(0);
         }
         return null;
