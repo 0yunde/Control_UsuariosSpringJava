@@ -17,7 +17,7 @@ import java.util.Date;
 @Component
 public class JWTUtil {
 
-    //Carga de properties que se obtiene de aplicacion en el ambiente que se este
+    //Carga de properties que se obtiene de aplicacion en el ambiente que se esté
     @Value("${security.jwt.secret}")
     private String key;
 

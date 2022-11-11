@@ -3,7 +3,7 @@ $(document).ready(function() {
 });
 
 async function iniciarSesion(){
-    try {z
+    try {
         let datos = {};
         datos.cuenta = document.getElementById('txt_cuenta').value ;
         datos.contrasena = document.getElementById('txt_contrasena1').value ;
